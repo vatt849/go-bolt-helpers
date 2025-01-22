@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"crypto/md5"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
@@ -82,6 +83,13 @@ func OpenJson(path string, data any) (err error) {
 
 func Sha256(s string) string {
 	h := sha256.New()
+	h.Write([]byte(s))
+
+	return fmt.Sprintf("%x", h.Sum(nil))
+}
+
+func MD5(s string) string {
+	h := md5.New()
 	h.Write([]byte(s))
 
 	return fmt.Sprintf("%x", h.Sum(nil))
